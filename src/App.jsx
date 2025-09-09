@@ -143,7 +143,6 @@ function App() {
           "@type": "WebPage",
           "name": siteConfig.title,
           "description": siteConfig.subtitle,
-          "url": window.location.href,
           "author": {
             "@type": "Person",
             "name": "Anonymous"
