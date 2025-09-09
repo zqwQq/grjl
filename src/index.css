@@ -18,7 +18,7 @@
 
 @layer components {
   .section-padding {
-    @apply px-4 sm:px-6 lg:px-8 py-16 lg:py-24;
+    @apply px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24;
   }
   
   .container-custom {
@@ -26,19 +26,39 @@
   }
   
   .btn-primary {
-    @apply bg-rose-gold hover:bg-rose-gold/80 text-white px-6 py-3 rounded-full transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:scale-105;
+    @apply bg-rose-gold hover:bg-rose-gold/80 text-white px-6 py-3 rounded-full transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-rose-gold focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none;
   }
   
   .btn-secondary {
-    @apply bg-white/80 backdrop-blur-sm hover:bg-white text-rose-gold px-6 py-3 rounded-full transition-all duration-300 font-medium shadow-lg hover:shadow-xl border border-rose-gold/20;
+    @apply bg-white/80 backdrop-blur-sm hover:bg-white text-rose-gold px-6 py-3 rounded-full transition-all duration-300 font-medium shadow-lg hover:shadow-xl border border-rose-gold/20 focus:outline-none focus:ring-2 focus:ring-rose-gold focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none;
   }
   
   .card {
-    @apply bg-white/60 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-6 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02];
+    @apply bg-white/60 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-4 sm:p-6 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02];
   }
   
   .text-gradient {
     @apply bg-gradient-to-r from-rose-gold to-pink-400 bg-clip-text text-transparent;
+  }
+  
+  .notification {
+    @apply fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 max-w-sm transform transition-all duration-300;
+  }
+  
+  .notification-success {
+    @apply bg-green-500 text-white;
+  }
+  
+  .notification-error {
+    @apply bg-red-500 text-white;
+  }
+  
+  .notification-warning {
+    @apply bg-yellow-500 text-white;
+  }
+  
+  .notification-info {
+    @apply bg-blue-500 text-white;
   }
 }
 
@@ -47,8 +67,18 @@
     text-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
   
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  
   .backdrop-blur-custom {
     backdrop-filter: blur(20px);
+  }
+  
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
   
   .animate-reduced-motion {
@@ -56,6 +86,26 @@
       animation: none !important;
       transition: none !important;
     }
+  }
+  
+  .safe-area-inset {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+  
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+  
+  .selection-none {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 }
 

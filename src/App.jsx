@@ -5,6 +5,8 @@ import Gallery from './components/Gallery';
 import Letter from './components/Letter';
 import EasterEgg from './components/EasterEgg';
 import AccessibilityControls from './components/AccessibilityControls';
+import NotificationSystem from './components/NotificationSystem';
+import ResourceManager from './components/ResourceManager';
 import { siteConfig } from './data/config';
 
 /**
@@ -127,6 +129,12 @@ function App() {
         easterEggData={siteConfig.easterEgg} 
         position="bottom-right" 
       />
+
+      {/* 通知系统 */}
+      <NotificationSystem />
+
+      {/* 资源管理器 */}
+      <ResourceManager />
 
       {/* 页面加载指示器 */}
       <div id="loading-indicator" className="fixed inset-0 z-50 bg-cream flex items-center justify-center transition-opacity duration-500 opacity-0 pointer-events-none">

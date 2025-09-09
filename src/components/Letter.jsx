@@ -4,6 +4,7 @@ import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { useTypewriter } from '../hooks/useTypewriter';
 import { generateLetterPDF } from '../utils/pdfGenerator';
 import { prefersReducedMotion, handleKeyboardNavigation } from '../utils';
+import { showSuccess, showError } from './NotificationSystem';
 
 /**
  * Letter组件 - 亲笔信展示
@@ -69,17 +70,22 @@ const Letter = ({ letterData }) => {
     setIsExporting(true);
     
     try {
-      const success = generateLetterPDF(letterData, 'love-letter.pdf');
+      const result = await generateLetterPDF(letterData, 'love-letter.pdf');
       
-      if (success) {
-        // 显示成功提示
-        console.log('PDF导出成功');
+      if (result.success) {
+        showSuccess(result.message, {
+          title: 'PDF导出成功',
+          duration: 4000
+        });
       } else {
-        alert('PDF导出失败，请重试');
+        throw new Error(result.message || '未知错误');
       }
     } catch (error) {
       console.error('PDF导出错误:', error);
-      alert('PDF导出失败，请重试');
+      showError(`PDF导出失败：${error.message}`, {
+        title: '导出失败',
+        duration: 6000
+      });
     } finally {
       setIsExporting(false);
     }

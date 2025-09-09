@@ -1,10 +1,10 @@
 // 网站配置数据 - 可以轻松修改内容
 export const siteConfig = {
   // 基本信息
-  title: "给小美的惊喜 — 生日快乐",
-  subtitle: "这是我为你准备的小世界",
-  heroImage: "/images/hero-bg.jpg", // 首屏背景图片
-  music: "/music/bgm.mp3", // 背景音乐
+  title: "给最爱的你 — 生日快乐",
+  subtitle: "这是我为你准备的小世界，承载着我们所有美好的回忆",
+  heroImage: "/images/hero-bg.jpg", // 首屏背景图片 (推荐尺寸: 1920x1080)
+  music: "/music/bgm.mp3", // 背景音乐文件
   
   // 时间线数据
   timeline: [
@@ -101,7 +101,8 @@ export const siteConfig = {
   
   // 彩蛋配置
   easterEgg: {
-    message: "🎉 惊喜！愿你永远开心快乐！🎂",
-    video: "/videos/surprise.mp4", // 可选的视频文件
+    message: "🎉 惊喜！愿你永远开心快乐，每一天都充满阳光！🎂✨",
+    video: "/videos/surprise.mp4", // 可选的视频文件，如不需要可删除此行
   }
+}
 };
