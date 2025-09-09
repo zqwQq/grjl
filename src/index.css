@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply font-sans text-gray-800 bg-cream;
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8 py-16 lg:py-24;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto;
+  }
+  
+  .btn-primary {
+    @apply bg-rose-gold hover:bg-rose-gold/80 text-white px-6 py-3 rounded-full transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:scale-105;
+  }
+  
+  .btn-secondary {
+    @apply bg-white/80 backdrop-blur-sm hover:bg-white text-rose-gold px-6 py-3 rounded-full transition-all duration-300 font-medium shadow-lg hover:shadow-xl border border-rose-gold/20;
+  }
+  
+  .card {
+    @apply bg-white/60 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-6 transition-all duration-300 hover:shadow-2xl hover:scale-[1.02];
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-rose-gold to-pink-400 bg-clip-text text-transparent;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .backdrop-blur-custom {
+    backdrop-filter: blur(20px);
+  }
+  
+  .animate-reduced-motion {
+    @media (prefers-reduced-motion: reduce) {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-cream;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-rose-gold/30 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-rose-gold/50;
+}
+
+/* 打字机效果 */
+.typewriter {
+  overflow: hidden;
+  border-right: 2px solid #E8B4B8;
+  white-space: nowrap;
+  margin: 0 auto;
+  animation: typewriter 3s steps(40) 1s both, blink 1s infinite;
+}
+
+/* 礼花容器 */
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* 图片懒加载占位符 */
+.image-placeholder {
+  @apply bg-gradient-to-br from-soft-pink to-blush animate-pulse;
+}
+
+/* 焦点样式 */
+.focus-visible:focus-visible {
+  @apply outline-none ring-2 ring-rose-gold ring-offset-2 ring-offset-cream;
+}
+
+/* 无障碍 - 减少动画 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
