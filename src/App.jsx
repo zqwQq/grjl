@@ -1,166 +1,35 @@
-import React, { useEffect } from 'react';
-import Hero from './components/Hero';
-import Timeline from './components/Timeline';
-import Gallery from './components/Gallery';
-import Letter from './components/Letter';
-import EasterEgg from './components/EasterEgg';
-import AccessibilityControls from './components/AccessibilityControls';
-import NotificationSystem from './components/NotificationSystem';
-import ResourceManager from './components/ResourceManager';
-import { siteConfig } from './data/config';
+import { useMemo, useState } from 'react';
+import { GameProvider, useGame } from './context/GameContext';
+import BottomNav from './components/BottomNav';
+import RoomPage from './components/RoomPage';
+import ShopPage from './components/ShopPage';
+import MoodPage from './components/MoodPage';
+import ProfilePage from './components/ProfilePage';
 
-/**
- * 主应用组件
- * 整合所有页面组件并提供完整的用户体验
- */
-function App() {
-  // 设置页面标题和元信息
-  useEffect(() => {
-    document.title = siteConfig.title;
-    
-    // 设置meta标签
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute('content', `${siteConfig.subtitle} - 一个特别的生日礼物网页`);
-    }
+function AppShell() {
+  const [tab, setTab] = useState('房间');
+  const { 状态 } = useGame();
 
-    // 设置主题色
-    const metaThemeColor = document.createElement('meta');
-    metaThemeColor.name = 'theme-color';
-    metaThemeColor.content = '#E8B4B8';
-    document.head.appendChild(metaThemeColor);
-
-    // 设置视口meta
-    const metaViewport = document.querySelector('meta[name="viewport"]');
-    if (metaViewport) {
-      metaViewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=5.0');
-    }
-
-    return () => {
-      // 清理
-      if (document.head.contains(metaThemeColor)) {
-        document.head.removeChild(metaThemeColor);
-      }
-    };
-  }, []);
-
-  // 处理页面加载完成
-  useEffect(() => {
-    const handleLoad = () => {
-      // 页面加载完成后的处理
-      document.body.classList.add('loaded');
-    };
-
-    if (document.readyState === 'complete') {
-      handleLoad();
-    } else {
-      window.addEventListener('load', handleLoad);
-      return () => window.removeEventListener('load', handleLoad);
-    }
-  }, []);
-
-  // 预加载关键资源
-  useEffect(() => {
-    const preloadResources = () => {
-      // 预加载首屏图片
-      if (siteConfig.heroImage) {
-        const img = new Image();
-        img.src = siteConfig.heroImage;
-      }
-
-      // 预加载音频文件
-      if (siteConfig.music) {
-        const audio = new Audio();
-        audio.preload = 'metadata';
-        audio.src = siteConfig.music;
-      }
-    };
-
-    preloadResources();
-  }, []);
+  const 页面标题 = useMemo(() => ({ 房间: '我的房间', 商店: '家具商店', 心情: '今日心情', 我的: '我的' }[tab]), [tab]);
 
   return (
-    <div className="App">
-      {/* 跳转到主要内容的链接（屏幕阅读器友好） */}
-      <a 
-        href="#main-content" 
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-rose-gold text-white px-4 py-2 rounded-lg z-50"
-      >
-        跳转到主要内容
-      </a>
-
-      {/* 无障碍控制面板 */}
-      <AccessibilityControls />
-
-      {/* 主要内容 */}
-      <main id="main-content" role="main">
-        {/* Hero 部分 */}
-        <Hero
-          title={siteConfig.title}
-          subtitle={siteConfig.subtitle}
-          heroImage={siteConfig.heroImage}
-          musicSrc={siteConfig.music}
-        />
-
-        {/* 时间线部分 */}
-        <Timeline timelineData={siteConfig.timeline} />
-
-        {/* 相册部分 */}
-        <Gallery galleryData={siteConfig.gallery} />
-
-        {/* 亲笔信部分 */}
-        <Letter letterData={siteConfig.letter} />
+    <div className={状态.深色模式 ? 'dark' : ''}>
+      <main className="mx-auto min-h-screen max-w-md bg-[#fffaf7] px-3 pb-24 pt-4 text-slate-700 dark:bg-slate-900 dark:text-slate-100">
+        <h1 className="mb-3 text-lg font-semibold">{页面标题}</h1>
+        {tab === '房间' && <RoomPage />}
+        {tab === '商店' && <ShopPage />}
+        {tab === '心情' && <MoodPage />}
+        {tab === '我的' && <ProfilePage />}
       </main>
-
-      {/* 页脚 */}
-      <footer className="bg-gradient-to-r from-soft-pink to-blush py-8 text-center">
-        <div className="container-custom">
-          <p className="text-gray-600 mb-2">
-            ❤️ 用心制作的生日礼物网页 ❤️
-          </p>
-          <p className="text-sm text-gray-500">
-            {new Date().getFullYear()} · 愿每一天都充满爱与快乐
-          </p>
-        </div>
-      </footer>
-
-      {/* 互动彩蛋 */}
-      <EasterEgg 
-        easterEggData={siteConfig.easterEgg} 
-        position="bottom-right" 
-      />
-
-      {/* 通知系统 */}
-      <NotificationSystem />
-
-      {/* 资源管理器 */}
-      <ResourceManager />
-
-      {/* 页面加载指示器 */}
-      <div id="loading-indicator" className="fixed inset-0 z-50 bg-cream flex items-center justify-center transition-opacity duration-500 opacity-0 pointer-events-none">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-rose-gold/30 border-t-rose-gold rounded-full animate-spin mb-4"></div>
-          <p className="text-gray-600 font-medium">正在加载美好回忆...</p>
-        </div>
-      </div>
-
-      {/* 结构化数据 (SEO) */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebPage",
-          "name": siteConfig.title,
-          "description": siteConfig.subtitle,
-          "author": {
-            "@type": "Person",
-            "name": "Anonymous"
-          },
-          "dateCreated": new Date().toISOString(),
-          "inLanguage": "zh-CN"
-        })}
-      </script>
+      <BottomNav activeTab={tab} onChange={setTab} />
     </div>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <GameProvider>
+      <AppShell />
+    </GameProvider>
+  );
+}
